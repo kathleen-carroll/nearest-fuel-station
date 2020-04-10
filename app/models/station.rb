@@ -1,8 +1,9 @@
 class Station
-  attr_reader :distance, :fuel_type, :access_times, :city, :state,
+  attr_reader :name, :distance, :fuel_type, :access_times, :city, :state,
               :street_address, :zip, :lat, :long
 
   def initialize(station_info)
+    @name = station_info['fuel_stations'].first['station_name']
     @distance = station_info['fuel_stations'].first['distance']
     @fuel_type = station_info['fuel_stations'].first['fuel_type_code']
     @access_times = station_info['fuel_stations'].first['access_days_time']
