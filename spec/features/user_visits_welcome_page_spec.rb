@@ -21,8 +21,9 @@ describe "user can visit the welcome page" do
     expect(page).to have_content("Fuel Type: ")
     expect(page).to have_content("Access Times: ")
     expect(page).to have_content("Distance: 0.1 miles")
-    expect(page).to have_content("1 minute away")
-    expect(page).to have_content("Directions: ")
-    expect(page).to have_content("Turn left onto Lawrence St Destination will be on the left")
+    expect(page).to have_content("1 min away")
+    expect(page).to have_content("Directions:")
+    expect(page).to have_content("Turn left onto Lawrence St")
+    expect(page).to have_content("Destination will be on the left")
   end
 end

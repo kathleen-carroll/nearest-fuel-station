@@ -5,3 +5,14 @@
 <p>Fuel Type: <%= @station.fuel_type %></p>
 <p>Access Times: <%= @station.access_times %></p>
 <p>Distance: <%= @station.distance.to_f.round(1) %> miles</p>
+
+<p>Directions:</p>
+<ul>
+  <% @directions.each do |direction| %>
+    <li>
+      <%= direction.instruction %>
+      <p><%= direction.duration %> away</p>
+      <p><%= direction.distance %></p>
+    </li>
+  <% end %>
+</ul>
