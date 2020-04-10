@@ -8,17 +8,14 @@ class SearchController < ApplicationController
 
     @station = Station.new(json)
 
+    # google_conn = Faraday.new(url: "https://maps.googleapis.com/maps/api/directions/json?key=#{ENV['GOOGLE_API_KEY']}&origin=#{search_term}&destination=#{@station.street_address}")
+    # goog_response = google_conn.get
+    # g_json = JSON.parse(goog_response.body, symbolize_names: true)
+
     # require "pry"; binding.pry
-    # @station.name
-    # @station.street_address
-    # @station.city
-    # search_term
+    raw_directions = GoogleService.get_directions(search_term, @station.street_address)
 
-    google_conn = Faraday.new(url: "https://maps.googleapis.com/maps/api/directions/json?key=#{ENV['GOOGLE_API_KEY']}&origin=#{search_term}&destination=#{@station.street_address}")
-    goog_response = google_conn.get
-    g_json = JSON.parse(goog_response.body, symbolize_names: true)
-
-    raw_directions = g_json[:routes].first[:legs].first[:steps]
+    # raw_directions = g_json[:routes].first[:legs].first[:steps]
 
     @directions = raw_directions.map {|direction| Direction.new(direction)}
   end
