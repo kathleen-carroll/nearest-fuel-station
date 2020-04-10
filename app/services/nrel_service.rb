@@ -6,7 +6,13 @@ class NRELService
   private
 
   def self.conn(search_location)
-    Faraday.new(url: "https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json?api_key=#{ENV['NREL_API_KEY']}&location=#{search_location}&fuel_type=ELEC&limit=1").get
+    # Faraday.new(url: "https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json?api_key=#{ENV['NREL_API_KEY']}&location=#{search_location}&fuel_type=ELEC&limit=1").get
+    Faraday.new(url: "https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json?") do |f|
+      f.params = {api_key: ENV['NREL_API_KEY'],
+                 location: search_location,
+                 fuel_type: 'ELEC',
+                 limit: 1}
+    end.get
   end
 
   def self.get_json(search_location)

@@ -6,11 +6,15 @@ class GoogleService
   private
 
   def self.conn(origin, destination)
-    Faraday.new(url: "https://maps.googleapis.com/maps/api/directions/json?key=#{ENV['GOOGLE_API_KEY']}&origin=#{origin}&destination=#{destination}")
+    # Faraday.new(url: "https://maps.googleapis.com/maps/api/directions/json?key=#{ENV['GOOGLE_API_KEY']}&origin=#{origin}&destination=#{destination}")
+    Faraday.new(url: "https://maps.googleapis.com/maps/api/directions/json?") do |f|
+      f.params = {key: ENV['GOOGLE_API_KEY'],
+                  origin: origin,
+                  destination: destination}
+    end.get
   end
 
   def self.get_json(origin, destination)
-    response = conn(origin, destination).get
-    JSON.parse(response.body, symbolize_names: true)
+    JSON.parse(conn(origin, destination).body, symbolize_names: true)
   end
 end
